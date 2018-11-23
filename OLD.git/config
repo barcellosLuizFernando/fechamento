@@ -1,0 +1,20 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	logallrefupdates = true
+	bare = false
+[remote "origin"]
+	url = https://barcellosLuizFernando@github.com/barcellosLuizFernando/fechamento2018.git
+	url = https://barcellosLuizFernando@github.com/barcellosLuizFernando/fechamento.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "MasterMadrugada2018"]
+	remote = origin
+	merge = refs/heads/MasterMadrugada2018
+[user]
+	name = ferna
+	email = ferna@192.168.2.9
+[pack]
+	buildbitmaps = false
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master

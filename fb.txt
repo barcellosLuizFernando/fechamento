@@ -1,0 +1,3 @@
+192.168.1.99/3050:E:/Econtabil/server_test/data/CDE_WIN_TESTE.FDB?sql_dialect=3
+SYSDBA
+sdb162sw

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Endividamento" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fbb9bc6e-c71b-4436-9b88-c0565925be7c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[call fechamento.fin_endividamento('2017-06-30')]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="tipodoc" class="java.lang.Integer"/>
+	<field name="conta" class="java.lang.Integer"/>
+	<field name="final" class="java.lang.String"/>
+	<field name="inicial" class="java.lang.String"/>
+	<field name="liberacao" class="java.sql.Date"/>
+	<field name="vencimento" class="java.sql.Date"/>
+	<field name="fornecedor" class="java.lang.Integer"/>
+	<field name="saldo_anterior" class="java.lang.Double"/>
+	<field name="liberacoes" class="java.lang.Double"/>
+	<field name="juros" class="java.lang.Double"/>
+	<field name="juros_mensal" class="java.lang.Double"/>
+	<field name="amortizacoes" class="java.lang.Double"/>
+	<field name="amortizacoes_mensal" class="java.lang.Double"/>
+	<field name="descontos" class="java.lang.Double"/>
+	<field name="descontos_mensal" class="java.lang.Double"/>
+	<field name="saldo" class="java.lang.Double"/>
+	<field name="liquidado" class="java.lang.Boolean"/>
+	<field name="autoupd" class="java.lang.Boolean"/>
+	<field name="INSTITUICAO FINANCEIRA" class="java.lang.String"/>
+	<field name="RECURSO" class="java.lang.String"/>
+	<field name="CRONOGRAMA DE VCTO" class="java.lang.String"/>
+	<field name="JUROS ANUAIS" class="java.lang.Double"/>
+	<field name="interveniencia" class="java.lang.String"/>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="65d94bdb-e4d3-41d1-bd7d-194dd9f9793e"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[INSTITUICAO FINANCEIRA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="2" width="100" height="20" uuid="45a4cd4d-bde6-4369-a77b-5386ad0c8e73"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[RECURSO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="2" width="100" height="20" uuid="793bf8f1-5e81-4aec-aa38-119b08b4ab1b"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[interveniencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="2" width="100" height="20" uuid="074e147c-4858-4462-b707-639db700b1fe"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[numero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="2" width="100" height="20" uuid="d10e9020-dab0-4cad-9b82-a178b7f06a5e"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[liberacao]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="5bfa6974-6abf-4e0d-8db3-3e2b824a12ea"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INSTITUICAO FINANCEIRA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="113" y="0" width="100" height="20" uuid="479edbfb-9dda-448e-bd76-c66f7a0aceed"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RECURSO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="0" width="100" height="20" uuid="b147e69a-16b5-4907-bc77-11c549d82ed9"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{interveniencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="348" y="0" width="100" height="20" uuid="1a79bb0d-fc6d-4179-9985-9300f266cc7a"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="477" y="0" width="100" height="20" uuid="2452b5db-7726-46c8-9bc6-8954b8dd1915"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{liberacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

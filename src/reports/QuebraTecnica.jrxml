@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="QuebraTecnica" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4b1996e6-b85f-4041-b941-bd7f21220bf8">
+	<property name="ireport.zoom" value="1.363636363636369"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dtInicial" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtFinal" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     *
+FROM
+     `quebra_tecnica` quebra_tecnica
+ORDER BY
+     cod_merc ASC,
+     ano ASC,
+     mes ASC]]>
+	</queryString>
+	<field name="mes" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ano" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unidade" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deposito" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="empresa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cod_merc" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mercadoria" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fisico" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quebra" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="produto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_importacao" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="quebraTotal" class="java.lang.Double" resetType="Group" resetGroup="mercadoria" calculation="Sum">
+		<variableExpression><![CDATA[$F{quebra}]]></variableExpression>
+	</variable>
+	<group name="mercadoria">
+		<groupExpression><![CDATA[$F{cod_merc}]]></groupExpression>
+		<groupHeader>
+			<band height="19">
+				<textField>
+					<reportElement x="53" y="3" width="502" height="14" uuid="ae6ba23b-e0d8-4080-b49c-3a470870b607"/>
+					<textElement>
+						<font fontName="Calibri"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mercadoria} + " (Cod. " + $F{cod_merc} + ")"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="3" width="53" height="14" uuid="7f38b995-bf20-4967-82fd-1ba9b8cdffa1"/>
+					<textElement>
+						<font fontName="Calibri" size="10" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Mercadoria:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" uuid="4c57b7e3-b8be-4361-b78d-e375e5155770"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="18">
+				<staticText>
+					<reportElement x="0" y="0" width="53" height="14" uuid="264e6111-5ced-4571-a864-25f1158ec94e"/>
+					<textElement>
+						<font fontName="Calibri" size="10" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[TOTAL:]]></text>
+				</staticText>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="218" y="0" width="55" height="14" uuid="4ed1b0ff-6385-4061-bd5b-58c98806a436"/>
+					<textElement textAlignment="Right">
+						<font fontName="Calibri" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{quebraTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="c8f1d558-d2fd-45a5-b1a6-5a34644cd45e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="14" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[QUEBRA TÉCNICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="555" height="14" uuid="b7c79853-e6c0-4acf-b632-0373a8537291"/>
+				<textElement>
+					<font fontName="Calibri" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[COOPERATIVA AGROPECUÁRIA TRADIÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="34" width="38" height="14" uuid="0cfb1fbd-eb00-4137-88c2-815252a1cd07"/>
+				<textElement>
+					<font fontName="Calibri" size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="38" y="34" width="517" height="14" uuid="d8f4019b-c426-4420-961d-0cdf951bf53b"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{dtInicial})
++ " até "
++ new SimpleDateFormat("dd/MM/yyyy").format($P{dtFinal})]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="16">
+			<staticText>
+				<reportElement x="158" y="1" width="60" height="14" uuid="6fa29bd7-a650-4781-8ec6-d9de71e3d3c2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Físico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="218" y="1" width="55" height="14" uuid="c688687d-afc7-416f-bed9-58787b0ecb0d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quebra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="63" height="14" uuid="19fdf34c-d5ea-40fd-b577-c88786347fac"/>
+				<textElement>
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Competência]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="1" width="45" height="14" uuid="1ce59fd6-b032-4c8b-b9fe-4eba7a5fcc4f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="1" width="45" height="14" uuid="d85bb644-18f0-4d65-b83a-e6c0a0779ff6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Depósito]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="14" backcolor="#F5F5F5" uuid="310b5604-0906-4361-a39c-13bfbd687ba2">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="63" height="14" uuid="a94c2d3b-d677-4ce3-bbde-deee79e0f703"/>
+				<textElement>
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{mes} < 10 ? "0"+$F{mes}:$F{mes} )+ "/" + $F{ano}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="0" width="45" height="14" uuid="def5867e-463b-46f3-a3e3-68c719fcb0f0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{unidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="0" width="45" height="14" uuid="33aa1664-49f9-4c93-98d7-d549f671d9b6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{deposito}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="158" y="0" width="60" height="14" uuid="c774aa17-07fa-487b-bd46-aa75d9aebd40"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fisico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="218" y="0" width="55" height="14" uuid="a4421a86-5cda-4e89-9b7d-0b7d9f88f698"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quebra}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
