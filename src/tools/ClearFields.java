@@ -23,6 +23,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.JViewport;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
@@ -104,6 +105,9 @@ public class ClearFields {
         } else if (c instanceof JTextArea) {
             JTextArea field = (JTextArea) c;
             CleanJTextArea(field);
+        } else if (c instanceof JTextPane) {
+            JTextPane field = (JTextPane) c;
+            CleanJTextPane(field);
             
         } else {
             System.out.println("CLEAR_FIELDS - Configurar componente: " + c.getClass());
@@ -179,6 +183,10 @@ public class ClearFields {
     }
     
     private static void CleanJTextArea(JTextArea field) {
+        field.setText("");
+    }
+    
+    private static void CleanJTextPane(JTextPane field) {
         field.setText("");
     }
     

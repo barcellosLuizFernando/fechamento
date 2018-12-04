@@ -13,6 +13,7 @@ import conn.ConexaoFB;
 import conn.ConexaoMySQL;
 import dirf.FrmExportaDirf;
 import finQuadroSocial.IntFrm_DevolCota;
+import financiamentos.IntFrm_CadBens;
 import java.awt.Dimension;
 import java.io.FileInputStream;
 import java.net.InetAddress;
@@ -47,6 +48,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         defineBD();
         try {
             ConexaoMySQL.tela = this;
+            System.out.println("Tela atribuída para a conexao.");
             
             cn.conecta();
             
@@ -97,6 +99,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mnuPrazos1 = new javax.swing.JMenuItem();
         jMenu15 = new javax.swing.JMenu();
         mnuPrazos5 = new javax.swing.JMenuItem();
+        jMenuItem55 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         mnuPrazos2 = new javax.swing.JMenuItem();
         jMenu14 = new javax.swing.JMenu();
@@ -365,6 +368,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu15.add(mnuPrazos5);
 
         jManutencao.add(jMenu15);
+
+        jMenuItem55.setText("Bens");
+        jMenuItem55.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem55ActionPerformed(evt);
+            }
+        });
+        jManutencao.add(jMenuItem55);
         jManutencao.add(jSeparator4);
 
         mnuPrazos2.setText("Setores");
@@ -1305,6 +1316,10 @@ m.data_baixa,
         abreTelaInterna(new IntFrm_PlanoReferencial());
     }//GEN-LAST:event_mnuPrazos5ActionPerformed
 
+    private void jMenuItem55ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem55ActionPerformed
+        abreTelaInterna(new IntFrm_CadBens(cn));        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem55ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1416,6 +1431,7 @@ m.data_baixa,
     private javax.swing.JMenuItem jMenuItem52;
     private javax.swing.JMenuItem jMenuItem53;
     private javax.swing.JMenuItem jMenuItem54;
+    private javax.swing.JMenuItem jMenuItem55;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;

@@ -49,6 +49,19 @@ public class ConexaoMySQL {
         return props;
 
     }
+    
+    /*public static void main(String[] args) {
+        ConexaoMySQL cn = new ConexaoMySQL();
+        try{
+            cn.arquivo = "mysql.properties";
+            cn.tela = new TelaPrincipal();
+        cn.conecta("luiz.barcellos", "Lu!z12345");
+        cn.desconecta();
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+        }
+    }*/
 
     public boolean conecta(String user, String pwd) {
         
