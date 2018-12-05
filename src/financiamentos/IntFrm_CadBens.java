@@ -8,6 +8,7 @@ package financiamentos;
 import conn.ConexaoFB;
 import conn.ConexaoMySQL;
 import java.text.ParseException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -22,7 +23,7 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
     private final ConexaoFB cnfb = new ConexaoFB();
     private MaskFormatter data;
     private String sql;
-    private boolean importar;
+    private boolean importar = true;
 
     /**
      * Creates new form IntFrm_CadBens
@@ -75,8 +76,17 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTxtData = new javax.swing.JFormattedTextField(data);
+        jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jTxtDataAvalia = new javax.swing.JFormattedTextField(data);
+        jLabel9 = new javax.swing.JLabel();
+        jTxtValor = new tools.JNumberFormatField99(tools.MascaraTextField.numeroBR());
+        jButton4 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cadastro de Bens");
@@ -127,6 +137,19 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
             }
         });
 
+        jTxtData.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTxtDataFocusLost(evt);
+            }
+        });
+
+        jButton3.setText("Excluir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -168,11 +191,13 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTxtData, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jTextField3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -214,7 +239,8 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -227,13 +253,117 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
             new String [] {
                 "tipo", "Código", "Nome"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(1).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(1).setMaxWidth(60);
+        }
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Avaliações"));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Data", "Valor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTable2);
+
+        jLabel8.setText("Data");
+
+        jTxtDataAvalia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTxtDataAvaliaFocusLost(evt);
+            }
+        });
+        jTxtDataAvalia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxtDataAvaliaKeyReleased(evt);
+            }
+        });
+
+        jLabel9.setText("Valor");
+
+        jTxtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxtValorKeyReleased(evt);
+            }
+        });
+
+        jButton4.setText("+");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTxtDataAvalia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTxtDataAvalia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -243,7 +373,10 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -252,7 +385,9 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -275,10 +410,82 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
         selecionaItem();
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void jTxtDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTxtDataFocusLost
+        if (jTxtData.getText().equals("  /  /    ")) {
+            jTxtData.setText("");
+        }
+    }//GEN-LAST:event_jTxtDataFocusLost
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (importar == false) {
+            try {
+                sql = "DELETE FROM fechamento.cad_bens "
+                        + "where id = '" + jTxtId.getText() + "';";
+                cn.executeAtualizacao(sql);
+
+                tools.DefaultMsg.saveDataSuccessfull();
+                tools.ClearFields.ClearFields(this);
+            } catch (Exception e) {
+                tools.DefaultMsg.errorMsg(e.getMessage());
+
+            } finally {
+                cn.finalizarTransacao();
+                montaTabela();
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        jTxtDataAvalia.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
+        jTxtValor.setText(jTable2.getValueAt(jTable2.getSelectedRow(), 1).toString());
+        jButton4.setText("-");
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jTxtDataAvaliaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTxtDataAvaliaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtDataAvaliaFocusLost
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        if (importar == false) {
+            try {
+                if (jButton4.getText().equals("+")) {
+                    sql = "INSERT INTO fechamento.cad_bens_avaliacoes (id,data,valor)"
+                            + "VALUES ('" + jTxtId.getText() + "','"
+                            + tools.ManipulaData.dateUSstr(jTxtDataAvalia.getText()) + "','"
+                            + jTxtValor.getText().replace(".", "").replace(",", ".") + "');";
+                } else {
+                    sql = "DELETE FROM fechamento.cad_bens_avaliacoes "
+                            + "WHERE id = '" + jTxtId.getText() + "' and "
+                            + "data = '" + tools.ManipulaData.dateUSstr(jTxtDataAvalia.getText()) + "';";
+                }
+
+                cn.executeAtualizacao(sql);
+                tools.ClearFields.ClearFields(jPanel2);
+            } catch (Exception e) {
+                tools.DefaultMsg.errorMsg(e.getMessage());
+            } finally {
+                cn.finalizarTransacao();
+            }
+
+            mostraAvaliacoes();
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTxtDataAvaliaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtDataAvaliaKeyReleased
+        jButton4.setText("+");        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtDataAvaliaKeyReleased
+
+    private void jTxtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtValorKeyReleased
+        jButton4.setText("+");        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtValorKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -287,14 +494,20 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextPane jTxpObservacao;
     private javax.swing.JTextField jTxtCodPatrim;
     private static javax.swing.JTextField jTxtData;
+    private static javax.swing.JTextField jTxtDataAvalia;
     private javax.swing.JTextField jTxtId;
     private javax.swing.JTextField jTxtIdBemCons;
     private javax.swing.JTextField jTxtIdEstab;
@@ -303,6 +516,7 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTxtNomeBemCons;
     private javax.swing.JTextField jTxtNomeEstab;
     private javax.swing.JTextField jTxtReg;
+    private static javax.swing.JTextField jTxtValor;
     // End of variables declaration//GEN-END:variables
 
     private void montaTabela() {
@@ -310,27 +524,44 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
         jTable1.setDefaultRenderer(Object.class, new tools.ColorRender());
         lista.setRowCount(0);
 
-        /**
-         * CONSULTA QUAIS BENS PODEM SER IMPORTADOS. PRECISA SER MELHORADO, PARA
-         * MOSTRAR BEM AGRUPADOR. TALVEZ MOSTRAR APENAS O AGRUPADOR, E NÃO OS
-         * AGRUPADOS.
-         */
-        sql = "select "
-                + "    p.estabelec, "
-                + "    p.codigo, "
-                + "    p.nome, "
-                + "    p.referencia, "
-                + "    p.observacao "
-                + "from cad_produtos p where p.empresa = 1 and p.tipo_item_sped = 8 "
-                + "and exists (select * from cad_produtos_imobilizado x where x.empresa = p.empresa and x.codigo = p.codigo and x.baixado != 'S') "
-                + "order by p.nome;";
+        ArrayList bens = new ArrayList();
+        bens.clear();
 
         try {
+            sql = "select id from fechamento.cad_bens;";
+
+            cn.conecta();
+            cn.executeConsulta(sql);
+            while (cn.rs.next()) {
+                bens.add(cn.rs.getString("id"));
+            }
+
+            /**
+             * CONSULTA QUAIS BENS PODEM SER IMPORTADOS. PRECISA SER MELHORADO,
+             * PARA MOSTRAR BEM AGRUPADOR. TALVEZ MOSTRAR APENAS O AGRUPADOR, E
+             * NÃO OS AGRUPADOS.
+             */
+            sql = "select "
+                    + "    p.estabelec, "
+                    + "    p.codigo, "
+                    + "    p.nome, "
+                    + "    p.referencia, "
+                    + "    p.observacao "
+                    + "from cad_produtos p where p.empresa = 1 and p.tipo_item_sped = 8 "
+                    + "and exists (select * from cad_produtos_imobilizado x where x.empresa = p.empresa and x.codigo = p.codigo and x.baixado != 'S') "
+                    + "order by p.nome;";
             cnfb.conecta();
             cnfb.executeConsulta(sql);
             while (cnfb.rs.next()) {
+                String tipo;
+                if (bens.contains(cnfb.rs.getString("codigo"))) {
+                    tipo = "T";
+                } else {
+                    tipo = "A";
+                }
+
                 lista.addRow(new Object[]{
-                    "A",
+                    tipo,
                     cnfb.rs.getString("codigo"),
                     cnfb.rs.getString("Nome")
                 });
@@ -346,6 +577,8 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
     }
 
     private void selecionaItem() {
+
+        tools.ClearFields.ClearFields(jPanel1);
 
         int linha = jTable1.getSelectedRow();
 
@@ -388,6 +621,53 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
             /**
              * CRIAR ROTINA PARA IMPORTAR DO MYSQL.
              */
+
+            try {
+                sql = "select * from "
+                        + "fechamento.cad_bens "
+                        + "where id = '" + jTxtId.getText() + "';";
+                cn.iniciarTransacao();
+                cn.executeConsulta(sql);
+                while (cn.rs.next()) {
+                    jTxpObservacao.setText(cn.rs.getString("descricao"));
+                    jTxtIdEstab.setText(cn.rs.getString("id_estabelecimento"));
+                    jTxtCodPatrim.setText(cn.rs.getString("cod_patrimonio"));
+                    jTxtIdBemCons.setText(cn.rs.getString("id_bem_consolidador"));
+                    jCheckBox1.setSelected(cn.rs.getBoolean("exige_quantidade"));
+                    jTxtReg.setText(cn.rs.getString("numero_registro"));
+                    jTxtLocalReg.setText(cn.rs.getString("local_registro"));
+
+                    try {
+                        jTxtData.setText(tools.ManipulaData.dateBRstr(cn.rs.getDate("dt_baixa")));
+                    } catch (Exception e) {
+
+                    }
+
+                }
+            } catch (Exception e) {
+                tools.DefaultMsg.errorMsg(e.getMessage());
+
+            } finally {
+                cn.finalizarTransacao();
+            }
+
+        }
+        mostraAvaliacoes();
+
+        try {
+            sql = "select * "
+                    + "from fechamento.cad_estabelecimentos "
+                    + "where id = '" + jTxtIdEstab.getText() + "' and "
+                    + "tipo = 0;";
+            cn.iniciarTransacao();
+            cn.executeConsulta(sql);
+            while (cn.rs.next()) {
+                jTxtNomeEstab.setText(cn.rs.getString("descricao"));
+            }
+        } catch (Exception e) {
+
+        } finally {
+            cn.finalizarTransacao();
         }
 
     }
@@ -403,7 +683,17 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
                     + jTxtIdBemCons.getText() + "','" + jTxtCodPatrim.getText() + "',"
                     + jCheckBox1.isSelected() + ");";
         } else {
-
+            sql = ("UPDATE fechamento.cad_bens SET "
+                    + "nome = '" + jTxtNome.getText() + "', "
+                    + "descricao = '" + jTxpObservacao.getText() + "', "
+                    + "id_estabelecimento = '" + jTxtIdEstab.getText() + "', "
+                    + "numero_registro = '" + jTxtReg.getText() + "', "
+                    + "local_registro = '" + jTxtLocalReg.getText() + "', "
+                    + "id_bem_consolidador = '" + jTxtIdBemCons.getText() + "', "
+                    + "cod_patrimonio = '" + jTxtCodPatrim.getText() + "', "
+                    + "exige_quantidade = " + jCheckBox1.isSelected() + ", "
+                    + " dt_baixa = '" + tools.ManipulaData.dateUSstr(jTxtData.getText()) + "' "
+                    + "where id = '" + jTxtId.getText() + "'; ").replace("'null'", "null");
         }
 
         try {
@@ -411,12 +701,44 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
             cn.executeAtualizacao(sql);
 
             tools.DefaultMsg.saveDataSuccessfull();
+
+            tools.ClearFields.ClearFields(this);
         } catch (Exception e) {
             tools.DefaultMsg.errorMsg(e.getMessage());
         } finally {
             cn.finalizarTransacao();
+            montaTabela();
         }
 
+    }
+
+    private void mostraAvaliacoes() {
+        DefaultTableModel lista = (DefaultTableModel) jTable2.getModel();
+        jTable2.setDefaultRenderer(Object.class, new tools.ColorRender());
+        lista.setRowCount(0);
+
+        if (importar == false) {
+
+            jButton4.setText("+");
+
+            try {
+                sql = "select * "
+                        + "from fechamento.cad_bens_avaliacoes "
+                        + "where id = '" + jTxtId.getText() + "' "
+                        + "order by data;";
+                cn.executeConsulta(sql);
+                while (cn.rs.next()) {
+                    lista.addRow(new Object[]{
+                        tools.ManipulaData.dateBRstr(cn.rs.getDate("data")),
+                        tools.FormatNumbers.numUsToBr(cn.rs.getDouble("valor"))
+                    });
+                }
+            } catch (Exception e) {
+
+            } finally {
+                cn.finalizarTransacao();
+            }
+        }
     }
 
 }

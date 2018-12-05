@@ -54,6 +54,13 @@ public class ClearFields {
         
     }
     
+    public static void ClearFields(JPanel pnl){
+        for (Component c : pnl.getComponents()) {
+            //System.out.println("Varrendo Frame: " + c.getClass());
+            CleanComponents(c);
+        }
+    }
+    
     private static void CleanComponents(Component c) {
         //System.out.println("Varrendo componente: " + c.getClass());
         if (c instanceof JPanel) {
