@@ -400,6 +400,7 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         tools.ClearFields.ClearFields(this);
+        montaTabela();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
@@ -547,8 +548,11 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
                     + "    p.nome, "
                     + "    p.referencia, "
                     + "    p.observacao "
-                    + "from cad_produtos p where p.empresa = 1 and p.tipo_item_sped = 8 "
-                    + "and exists (select * from cad_produtos_imobilizado x where x.empresa = p.empresa and x.codigo = p.codigo and x.baixado != 'S') "
+                    + "from cad_produtos p "
+                    + "left join cad_setores s on s.empresa = p.empresa and s.codigo = p.setor "
+                    + "where p.empresa = 1 and ((p.tipo_item_sped = 8 "
+                    + "and exists (select * from cad_produtos_imobilizado x where x.empresa = p.empresa and x.codigo = p.codigo and x.baixado != 'S')) "
+                    + "or s.classificacao starting with '01.01') "
                     + "order by p.nome;";
             cnfb.conecta();
             cnfb.executeConsulta(sql);
@@ -598,8 +602,9 @@ public class IntFrm_CadBens extends javax.swing.JInternalFrame {
                     + "    p.nome, "
                     + "    coalesce(p.referencia,0) as referencia, "
                     + "    p.observacao "
-                    + "from cad_produtos p where p.empresa = 1 and "
-                    + "p.tipo_item_sped = 8 and "
+                    + "from cad_produtos p "
+                    + "where p.empresa = 1 and "
+                    //+ "p.tipo_item_sped = 8 and "
                     + "p.codigo = '" + jTxtId.getText() + "';";
 
             try {

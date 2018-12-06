@@ -14,6 +14,7 @@ import conn.ConexaoMySQL;
 import dirf.FrmExportaDirf;
 import finQuadroSocial.IntFrm_DevolCota;
 import financiamentos.IntFrm_CadBens;
+import financiamentos.IntFrm_Financ_Garantias;
 import java.awt.Dimension;
 import java.io.FileInputStream;
 import java.net.InetAddress;
@@ -132,6 +133,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem26 = new javax.swing.JMenuItem();
         jMenuItem27 = new javax.swing.JMenuItem();
         jMenuItem28 = new javax.swing.JMenuItem();
+        jMenuItem56 = new javax.swing.JMenuItem();
         jMenuItem33 = new javax.swing.JMenuItem();
         jMenuItem47 = new javax.swing.JMenuItem();
         jMenuItem31 = new javax.swing.JMenuItem();
@@ -577,6 +579,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu10.add(jMenuItem28);
+
+        jMenuItem56.setText("Garantias");
+        jMenuItem56.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem56ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem56);
 
         jMenuItem33.setText("Importar Arquivo");
         jMenuItem33.addActionListener(new java.awt.event.ActionListener() {
@@ -1320,6 +1330,10 @@ m.data_baixa,
         abreTelaInterna(new IntFrm_CadBens(cn));        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem55ActionPerformed
 
+    private void jMenuItem56ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem56ActionPerformed
+        abreTelaInterna(new IntFrm_Financ_Garantias(cn));        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem56ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1432,6 +1446,7 @@ m.data_baixa,
     private javax.swing.JMenuItem jMenuItem53;
     private javax.swing.JMenuItem jMenuItem54;
     private javax.swing.JMenuItem jMenuItem55;
+    private javax.swing.JMenuItem jMenuItem56;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
